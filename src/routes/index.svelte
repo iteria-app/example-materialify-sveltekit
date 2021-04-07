@@ -1,13 +1,15 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { Button } from 'svelte-materialify/dist';
+	import { goto } from '$app/navigation';
+
+	onMount(() => {
+		goto('/dashboard');
+	});
 </script>
 
 <section>
-	<div class="content">
-		<a href="/dashboard" class="">
-			<Button>Dashboard</Button>
-		</a>
-	</div>
+	<div class="content" />
 </section>
 
 <style>

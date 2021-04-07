@@ -1,8 +1,19 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-	import { Button, NavigationDrawer, List, ListItem, Icon } from 'svelte-materialify';
+	import {
+		Button,
+		NavigationDrawer,
+		List,
+		ListItem,
+		Icon,
+		Avatar,
+		Divider
+	} from 'svelte-materialify';
 	import breakpoints, { mediumAndDown } from './stores/breakpoints';
 	import { drawerVisible } from './stores';
+	import UserInfoDrawer from './UserInfoDrawer.svelte';
+	import { mdiViewDashboard } from '@mdi/js';
+	import { BarChartIcon, UsersIcon } from 'svelte-feather-icons';
 
 	function resize() {
 		breakpoints.update((bps) => bps);
@@ -15,26 +26,22 @@
 
 <svelte:window on:resize={resize} />
 
-<div class="drawer" class:visible={$drawerVisible} class:mobile={$mediumAndDown}>
+<div class="drawer" class:visible={!$mediumAndDown || $drawerVisible} class:mobile={$mediumAndDown}>
 	<NavigationDrawer class="theme--light">
-		<List>
+		<UserInfoDrawer />
+		<Divider />
+		<List style="padding: 1rem;">
 			<ListItem>
 				<span slot="prepend">
-					<!-- <Icon path={mdiViewDashboard} /> -->
+					<BarChartIcon size="20" />
 				</span>
 				Dashboard
 			</ListItem>
 			<ListItem>
 				<span slot="prepend">
-					<!-- <Icon path={mdiAccountBox} /> -->
+					<UsersIcon size="20" />
 				</span>
-				Account
-			</ListItem>
-			<ListItem>
-				<span slot="prepend">
-					<!-- <Icon path={mdiGavel} /> -->
-				</span>
-				Admin
+				Customers
 			</ListItem>
 		</List>
 		<span slot="append" class="pa-2">
@@ -58,5 +65,9 @@
 	.mobile {
 		top: 0;
 		height: 100vh;
+	}
+	[slot='prepend'] {
+		margin-right: 0.6rem;
+		transform: translateY(2px);
 	}
 </style>

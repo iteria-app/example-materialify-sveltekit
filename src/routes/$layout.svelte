@@ -33,7 +33,7 @@
 	}
 
 	.content {
-		height: 100%;
+		height: calc(100vh - 3.6rem);
 		max-height: 100%;
 		overflow-y: auto;
 	}
