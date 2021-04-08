@@ -15,3 +15,4 @@ export default writable({
 })
 
 export const mediumAndDown = writable(true);
+export const smallAndDown = writable(false);

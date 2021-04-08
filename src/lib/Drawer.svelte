@@ -9,7 +9,7 @@
 		Avatar,
 		Divider
 	} from 'svelte-materialify';
-	import breakpoints, { mediumAndDown } from './stores/breakpoints';
+	import breakpoints, { mediumAndDown, smallAndDown } from './stores/breakpoints';
 	import { drawerVisible } from './stores';
 	import UserInfoDrawer from './UserInfoDrawer.svelte';
 	import { mdiViewDashboard } from '@mdi/js';
@@ -21,6 +21,7 @@
 
 	$: if (browser) {
 		$mediumAndDown = window.matchMedia($breakpoints['md-and-down']).matches;
+		$smallAndDown = window.matchMedia($breakpoints['sm-and-down']).matches;
 	}
 </script>
 
