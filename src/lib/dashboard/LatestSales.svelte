@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { mediumAndDown } from '$lib/stores/breakpoints';
-	import { Button, Card, CardTitle, Divider, Icon } from 'svelte-materialify';
-	import Chart from 'chart.js/dist/Chart.bundle';
+	import { Button, Card, CardTitle, Divider } from 'svelte-materialify';
+	import Chart from 'chart.js/dist/Chart.bundle.js';
 
 	let canvas: HTMLCanvasElement;
 	let chart;

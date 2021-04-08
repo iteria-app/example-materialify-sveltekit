@@ -1,7 +1,7 @@
 <script>
 	import { mediumAndDown, smallAndDown } from '$lib/stores/breakpoints';
 	import { Divider } from 'svelte-materialify';
-	import { Button, Card, CardTitle, Icon, Chip } from 'svelte-materialify/dist';
+	import { Button, Card, CardTitle, Chip } from 'svelte-materialify/dist';
 </script>
 
 <div class="wrapper" class:mobile={$smallAndDown} class:tablet={$mediumAndDown}>

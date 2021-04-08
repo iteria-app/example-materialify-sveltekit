@@ -1,5 +1,5 @@
 <script>
-	import { Avatar, Card, CardActions, ProgressLinear } from 'svelte-materialify';
+	import { Avatar, Card } from 'svelte-materialify';
 </script>
 
 <Card outlined style="min-height: 120px;">

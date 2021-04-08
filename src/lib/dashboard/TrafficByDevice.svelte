@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Card, CardTitle, Divider, Icon } from 'svelte-materialify';
-	import Chart from 'chart.js/dist/Chart.bundle';
+	import { Card, CardTitle, Divider } from 'svelte-materialify';
+	import Chart from 'chart.js/dist/Chart.bundle.js';
 
 	let colors = { indigo: '#3f51b5', red: '#e53935', orange: '#fb8c00', white: '#ffffff' };
 

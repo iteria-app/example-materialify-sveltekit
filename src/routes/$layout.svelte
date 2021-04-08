@@ -14,8 +14,8 @@
 	locale.set('en');
 
 	onMount(async () => {
-		const module = await import('svelte-materialify/src/utils/breakpoints');
-		breakpoints.set(module.default);
+		// const module = await import('svelte-materialify/src/utils/breakpoints');
+		// breakpoints.set(module.default);
 	});
 </script>
 

@@ -1,17 +1,8 @@
 <script>
-	import {
-		Avatar,
-		Button,
-		Card,
-		CardText,
-		CardTitle,
-		Divider,
-		List,
-		ListItem
-	} from 'svelte-materialify';
+	import { Button, Card, CardTitle, Divider, List, ListItem } from 'svelte-materialify';
 </script>
 
-<Card>
+<Card style="height: 100%;">
 	<CardTitle>
 		<div class="title">
 			<span>Latest Products</span>
