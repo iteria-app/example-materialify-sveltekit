@@ -38,7 +38,7 @@
 	</div>
 </AppBar>
 
-<style lang="scss">
+<style>
 	.appbar {
 		display: flex;
 		justify-content: space-between;
@@ -52,6 +52,9 @@
 		width: max-content;
 		display: flex;
 		align-items: center;
+	}
+	.left a {
+		margin-top: 5px;
 	}
 	.right {
 		justify-content: center;

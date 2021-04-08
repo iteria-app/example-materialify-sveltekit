@@ -7,7 +7,7 @@
 	<div class="overlay" on:click={() => drawerVisible.set(false)} />
 {/if}
 
-<style lang="scss">
+<style>
 	.overlay {
 		position: absolute;
 		width: 100%;
@@ -17,6 +17,6 @@
 		height: 100%;
 		z-index: 9;
 		background: #00000055;
-        cursor: pointer;
+		cursor: pointer;
 	}
 </style>

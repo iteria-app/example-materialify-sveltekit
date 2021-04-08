@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { mediumAndDown } from '$lib/stores/breakpoints';
-	import { mdiArrowDown } from '@mdi/js';
 	import { Button, Card, CardTitle, Divider, Icon } from 'svelte-materialify';
-	import theme from 'svelte-materialify/src/utils/colors';
 	import Chart from 'chart.js/dist/Chart.bundle';
 
 	let canvas: HTMLCanvasElement;
@@ -23,7 +21,7 @@
 				label: 'This year'
 			},
 			{
-				backgroundColor: "#dadada",
+				backgroundColor: '#dadada',
 				data: [11, 20, 12, 29, 30, 25, 13],
 				label: 'Last year'
 			}
@@ -89,7 +87,7 @@
 				<div class="right">
 					<Button depressed={true} style="background: transparent">
 						<span>Last 7 Days</span>
-						<Icon path={mdiArrowDown} />
+						<span class="material-icons">arrow_drop_down</span>
 					</Button>
 				</div>
 			</div>

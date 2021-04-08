@@ -1,23 +1,28 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-	import {
-		Button,
-		NavigationDrawer,
-		List,
-		ListItem,
-		Icon,
-		Avatar,
-		Divider
-	} from 'svelte-materialify';
+	import { goto } from '$app/navigation';
+	import { Button, NavigationDrawer, List, ListItem, Divider } from 'svelte-materialify';
 	import breakpoints, { mediumAndDown, smallAndDown } from './stores/breakpoints';
 	import { drawerVisible } from './stores';
 	import UserInfoDrawer from './UserInfoDrawer.svelte';
-	import { mdiViewDashboard } from '@mdi/js';
 	import { BarChartIcon, UsersIcon } from 'svelte-feather-icons';
 
 	function resize() {
 		breakpoints.update((bps) => bps);
 	}
+
+	const items = [
+		{
+			icon: BarChartIcon,
+			name: 'Dashboard',
+			href: '/dashboard'
+		},
+		{
+			icon: UsersIcon,
+			name: 'Customers',
+			href: '/customers'
+		}
+	];
 
 	$: if (browser) {
 		$mediumAndDown = window.matchMedia($breakpoints['md-and-down']).matches;
@@ -32,18 +37,14 @@
 		<UserInfoDrawer />
 		<Divider />
 		<List style="padding: 1rem;">
-			<ListItem>
-				<span slot="prepend">
-					<BarChartIcon size="20" />
-				</span>
-				Dashboard
-			</ListItem>
-			<ListItem>
-				<span slot="prepend">
-					<UsersIcon size="20" />
-				</span>
-				Customers
-			</ListItem>
+			{#each items as item}
+				<ListItem on:click={() => goto(item.href)}>
+					<span slot="prepend">
+						<svelte:component this={item.icon} size="20" />
+					</span>
+					{item.name}
+				</ListItem>
+			{/each}
 		</List>
 		<span slot="append" class="pa-2">
 			<Button block>Logout</Button>
@@ -51,7 +52,7 @@
 	</NavigationDrawer>
 </div>
 
-<style lang="scss">
+<style>
 	.drawer {
 		position: fixed;
 		top: var(--s-app-bar-height);

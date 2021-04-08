@@ -10,7 +10,7 @@
 	<span class="text-subtitle-2 grey-text text-darken-2">Senior Developer</span>
 </div>
 
-<style lang="scss">
+<style>
 	.userinfo {
 		display: flex;
 		flex-direction: column;

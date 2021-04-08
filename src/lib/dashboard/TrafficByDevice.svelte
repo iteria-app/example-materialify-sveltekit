@@ -59,7 +59,6 @@
 
 	$: if (canvas && !chart) {
 		chart = new Chart(canvas.getContext('2d'), config);
-		console.log(chart);
 	}
 </script>
 
@@ -116,6 +115,6 @@
 	}
 	.device span:last-child {
 		font-size: 1.7rem;
-		font-weight: bold;
+		font-weight: 500;
 	}
 </style>
