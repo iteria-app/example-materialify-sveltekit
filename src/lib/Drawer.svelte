@@ -6,6 +6,7 @@
 	import { drawerVisible } from './stores';
 	import UserInfoDrawer from './UserInfoDrawer.svelte';
 	import { BarChartIcon, UsersIcon } from 'svelte-feather-icons';
+	import { _ } from 'svelte-i18n';
 
 	function resize() {
 		breakpoints.update((bps) => bps);
@@ -14,12 +15,12 @@
 	const items = [
 		{
 			icon: BarChartIcon,
-			name: 'Dashboard',
+			name: $_('app.drawer.dashboard'),
 			href: '/dashboard'
 		},
 		{
 			icon: UsersIcon,
-			name: 'Customers',
+			name: $_('app.drawer.customers'),
 			href: '/customers'
 		}
 	];
@@ -47,7 +48,7 @@
 			{/each}
 		</List>
 		<span slot="append" class="pa-2">
-			<Button block>Logout</Button>
+			<Button block>{$_("app.drawer.logout")}</Button>
 		</span>
 	</NavigationDrawer>
 </div>

@@ -1,17 +1,23 @@
 <script>
+	import { _ } from 'svelte-i18n';
 	import { mediumAndDown, smallAndDown } from '$lib/stores/breakpoints';
-	import { Divider } from 'svelte-materialify';
+	import { CardActions, Divider } from 'svelte-materialify';
 	import { Button, Card, CardTitle, Chip } from 'svelte-materialify/dist';
+	import { latestOrders } from './data';
 </script>
 
 <div class="wrapper" class:mobile={$smallAndDown} class:tablet={$mediumAndDown}>
 	<Card style="min-height: 300px;">
 		<CardTitle class="latest--orders--card-title">
 			<div class="title">
-				<span>Latest Orders</span>
+				<span>{$_('app.dashboard.latestOrders')}</span>
 				<div class="right">
-					<Button depressed={true} style="background: transparent;padding: 1rem 0.4rem;" size="x-small">
-						<span>Last 7 Days</span>
+					<Button
+						depressed={true}
+						style="background: transparent;padding: 1rem 0.4rem;"
+						size="x-small"
+					>
+						<span>{$_('app.dashboard.last7Days')}</span>
 						<span class="material-icons">arrow_drop_down</span>
 					</Button>
 				</div>
@@ -21,21 +27,21 @@
 		<div class="table-wrapper">
 			<table>
 				<tr>
-					<th>Order Ref</th>
-					<th>Customer</th>
-					<th>Date</th>
-					<th>Status</th>
+					<th>{$_('app.dashboard.orderRef')}</th>
+					<th>{$_('app.dashboard.customer')}</th>
+					<th>{$_('app.dashboard.date')}</th>
+					<th>{$_('app.dashboard.status')}</th>
 				</tr>
 				<tr class="border">
 					<td colspan="4" />
 				</tr>
-				{#each [1, 2, 3, 4, 5, 6] as i}
+				{#each $latestOrders as order}
 					<tr>
-						<td>CDD1049</td>
-						<td>Ekaterina Tankova</td>
-						<td>12/04/2019</td>
+						<td>{order.orderRef}</td>
+						<td>{order.customer}</td>
+						<td>{order.date}</td>
 						<td>
-							<Chip class="ma-2 primary-color margin-zero">Primary</Chip>
+							<Chip class="ma-2 primary-color margin-zero">{order.status}</Chip>
 						</td>
 					</tr>
 					<tr class="border">
@@ -44,6 +50,17 @@
 				{/each}
 			</table>
 		</div>
+		<CardActions>
+			<div class="actions">
+				<Button depressed={true}
+					style="background: transparent;padding: 1rem 0.4rem;color: blue;"
+					size="small"
+					>
+					View All
+					<span class="material-icons">arrow_right</span>
+				</Button>
+			</div>
+		</CardActions>
 	</Card>
 </div>
 
@@ -84,5 +101,10 @@
 		width: 100%;
 		height: 1px;
 		background: var(--theme-dividers);
+	}
+	.actions {
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
 	}
 </style>

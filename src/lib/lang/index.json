@@ -1,0 +1,34 @@
+{
+    "en": {
+        "app": {
+            "drawer": {
+                "dashboard": "Dashboard",
+                "customers": "Customers",
+                "logout": "LOGOUT"
+            },
+            "dashboard": {
+                "budget": "BUDGET",
+                "totalCustomers": "TOTAL CUSTOMERS",
+                "sinceLastMonth": "Since Last Month",
+                "tasksProgress": "TASKS PROGRESS",
+                "totalProfit": "TOTAL PROFIT",
+                "latestSales": "LATEST SALES",
+                "last7Days": "LAST 7 DAYS",
+                "traficByDevice": "Traffic By Device",
+                "desktop": "Desktop",
+                "tablet": "Tablet",
+                "mobile": "Mobile",
+                "latestProducts": "Latest Products",
+                "updated2HoursAgo": "Updated 2 hours ago",
+                "latestOrders": "Latest Orders",
+                "orderRef": "Order Ref",
+                "customer": "Customer",
+                "date": "Date",
+                "status": "Status",
+                "primary": "Primary",
+                "updated": "Updated",
+                "ago": "ago"
+            }
+        }
+    }
+}

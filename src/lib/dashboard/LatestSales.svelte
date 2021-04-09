@@ -2,32 +2,13 @@
 	import { mediumAndDown } from '$lib/stores/breakpoints';
 	import { Button, Card, CardTitle, Divider } from 'svelte-materialify';
 	import Chart from 'chart.js/dist/Chart.bundle.js';
+	import { _ } from 'svelte-i18n';
+	import { latestSales } from './data';
 
 	let canvas: HTMLCanvasElement;
 	let chart;
-	let colors = {
-		indigo: '#3f51b5',
-		red: '#e53935',
-		orange: '#fb8c00',
-		white: '#ffffff',
-		grey: '#888'
-	};
 
-	const data = {
-		datasets: [
-			{
-				backgroundColor: colors.indigo,
-				data: [18, 5, 19, 27, 29, 19, 20],
-				label: 'This year'
-			},
-			{
-				backgroundColor: '#dadada',
-				data: [11, 20, 12, 29, 30, 25, 13],
-				label: 'Last year'
-			}
-		],
-		labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
-	};
+	$: data = $latestSales;
 
 	const options = {
 		animation: false,
@@ -83,10 +64,14 @@
 	<Card style="height: 100%;">
 		<CardTitle>
 			<div class="title">
-				<span>Latest Sales</span>
+				<span>{$_('app.dashboard.latestSales')}</span>
 				<div class="right">
-					<Button depressed={true} style="background: transparent;padding: 1rem 0.4rem;" size="x-small">
-						<span>Last 7 Days</span>
+					<Button
+						depressed={true}
+						style="background: transparent;padding: 1rem 0.4rem;"
+						size="x-small"
+					>
+						<span>{$_('app.dashboard.last7Days')}</span>
 						<span class="material-icons">arrow_drop_down</span>
 					</Button>
 				</div>
