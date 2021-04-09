@@ -7,6 +7,7 @@
 	import UserInfoDrawer from './UserInfoDrawer.svelte';
 	import { BarChartIcon, UsersIcon } from 'svelte-feather-icons';
 	import { _ } from 'svelte-i18n';
+	import { page } from '$app/stores';
 
 	function resize() {
 		breakpoints.update((bps) => bps);
@@ -58,10 +59,10 @@
 		<List style="padding: 1rem;">
 			{#each items as item, index}
 				<ListItem on:click={() => itemClicked(index)}>
-					<span slot="prepend">
+					<span class:activeItem={item.href === $page.path} slot="prepend">
 						<svelte:component this={item.icon} size="20" />
 					</span>
-					{item.name}
+					<span class:activeItem={item.href === $page.path}> {item.name}</span>
 				</ListItem>
 				{#if item.expended && item.submenu}
 					<div class="submenu">
@@ -105,5 +106,8 @@
 	}
 	.submenu {
 		padding-left: 1rem;
+	}
+	.activeItem {
+		color: blue;
 	}
 </style>

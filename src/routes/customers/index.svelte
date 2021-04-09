@@ -36,6 +36,10 @@
 	$: console.log(selected);
 </script>
 
+<svelte:head>
+	<title>Customers</title>
+</svelte:head>
+
 <section class:tablet={$mediumAndDown} class:mobile={$smallAndDown}>
 	<Card>
 		<CardText style="padding: 0;overflow-x: auto;">
