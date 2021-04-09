@@ -10,7 +10,7 @@
 			<div class="title">
 				<span>Latest Orders</span>
 				<div class="right">
-					<Button depressed={true} style="background: transparent">
+					<Button depressed={true} style="background: transparent;padding: 1rem 0.4rem;" size="x-small">
 						<span>Last 7 Days</span>
 						<span class="material-icons">arrow_drop_down</span>
 					</Button>
@@ -54,7 +54,10 @@
 		width: 100%;
 	}
 	.mobile :global(.latest--orders--card-title) {
-		padding-right: 0;
+		padding-right: 0.2rem;
+	}
+	.title > span:first-child {
+		margin-top: 0.2rem;
 	}
 	table {
 		width: 100%;

@@ -85,7 +85,7 @@
 			<div class="title">
 				<span>Latest Sales</span>
 				<div class="right">
-					<Button depressed={true} style="background: transparent">
+					<Button depressed={true} style="background: transparent;padding: 1rem 0.4rem;" size="x-small">
 						<span>Last 7 Days</span>
 						<span class="material-icons">arrow_drop_down</span>
 					</Button>
@@ -107,6 +107,9 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
+	}
+	.title > span:first-child {
+		margin-top: 0.2rem;
 	}
 	.content {
 		padding: 1rem;
