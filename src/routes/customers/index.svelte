@@ -11,7 +11,6 @@
 	onMount(async () => {
 		try {
 			const result = await graphqlClient.query(QUERY_CUSTOMERS);
-			console.log(result);
 			$allCustomers = result.data.customers;
 		} catch (error) {
 			console.log(error.message);

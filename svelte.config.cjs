@@ -18,7 +18,7 @@ module.exports = {
 					replacements: [
 						{
 							from: "process.env.NODE_ENV",
-							to: JSON.stringify("development"),
+							to: JSON.stringify(process.env.NODE_ENV),
 						}
 					],
 				})
