@@ -1,6 +1,10 @@
-import { v4 as uuid } from 'uuid';
+import { writable } from 'svelte/store';
 
-export default [
+export default writable([]);
+
+/*
+import { v4 as uuid } from 'uuid';
+[
     {
         id: uuid(),
         address: {
@@ -142,3 +146,4 @@ export default [
         phone: '801-301-7894'
     }
 ];
+*/

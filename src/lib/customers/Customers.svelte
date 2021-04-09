@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Avatar, Checkbox } from 'svelte-materialify';
+	import { date } from 'svelte-i18n';
 
 	export let allSelected = false;
 	export let customers = [];
@@ -10,17 +11,6 @@
 		} else {
 			customers = customers.map((c) => ({ ...c, selected: false }));
 		}
-	}
-
-	function getDate(date: Date) {
-		const _date = date.getDate().toString().padStart(2, '0');
-		const _month = date.getMonth().toString().padStart(2, '0');
-		const _year = date.getFullYear().toString();
-		return `${_date}/${_month}/${_year}`;
-	}
-
-	function getAddress(address: any) {
-		return `${address.street}, ${address.city}, ${address.state}, ${address.country}`;
 	}
 </script>
 
@@ -69,14 +59,19 @@
 			</td>
 			<td>
 				<span>
-					{getAddress(customer.address)}
+					{customer.address.street},
+					{customer.address.city},
+					{customer.address.state},
+					{customer.address.country}
 				</span>
 			</td>
 			<td>
 				<span>{customer.phone}</span>
 			</td>
 			<td>
-				<span>{getDate(new Date(customer.createdAt))}</span>
+				{#if customer.createdAt}
+					<span>{$date(new Date(customer.createdAt))}</span>
+				{/if}
 			</td>
 		</tr>
 	{/each}

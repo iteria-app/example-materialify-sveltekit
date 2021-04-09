@@ -1,0 +1,1 @@
+export const GRAPHQL_ENDPOINT = "https://iteria-app-example01.herokuapp.com/v1/graphql";

@@ -1,9 +1,22 @@
 <script lang="ts">
 	import Customers from '$lib/customers/Customers.svelte';
 	import { mediumAndDown, smallAndDown } from '$lib/stores/breakpoints';
-	import { Avatar, Button, Card, CardActions } from 'svelte-materialify';
-	import { CardText, Checkbox, Select } from 'svelte-materialify';
-	import data from './data';
+	import { onMount } from 'svelte';
+	import { Button, Card, CardActions } from 'svelte-materialify';
+	import { CardText, Select } from 'svelte-materialify';
+	import graphqlClient from '$lib/helpers/graphql';
+	import allCustomers from './data';
+	import { QUERY_CUSTOMERS } from './queries';
+
+	onMount(async () => {
+		try {
+			const result = await graphqlClient.query(QUERY_CUSTOMERS);
+			console.log(result);
+			$allCustomers = result.data.customers;
+		} catch (error) {
+			console.log(error.message);
+		}
+	});
 
 	const items = [
 		{ name: '5', value: 5 },
@@ -12,9 +25,8 @@
 	];
 	let rowPerPage = 10;
 	let currentPage = 0;
-	let selected = [];
 	let allSelected = false;
-	$: customers = data
+	$: customers = $allCustomers
 		.slice(currentPage * rowPerPage, (currentPage + 1) * rowPerPage)
 		.map((c) => ({ ...c, selected: false }));
 
@@ -32,8 +44,6 @@
 			allSelected = false;
 		}
 	}
-
-	$: console.log(selected);
 </script>
 
 <svelte:head>
@@ -53,8 +63,11 @@
 				</div>
 				<div>
 					<span
-						>{currentPage * rowPerPage + 1}-{Math.min(data.length, (currentPage + 1) * rowPerPage)} of
-						{data.length}</span
+						>{currentPage * rowPerPage + 1}-{Math.min(
+							$allCustomers.length,
+							(currentPage + 1) * rowPerPage
+						)} of
+						{$allCustomers.length}</span
 					>
 					<Button icon={true} on:click={prevPage} disabled={currentPage === 0}>
 						<span class="material-icons"> arrow_left </span>
@@ -62,7 +75,7 @@
 					<Button
 						icon={true}
 						on:click={nextPage}
-						disabled={currentPage === parseInt(`${(data.length - 1) / rowPerPage}`)}
+						disabled={currentPage === parseInt(`${($allCustomers.length - 1) / rowPerPage}`)}
 					>
 						<span class="material-icons"> arrow_right </span>
 					</Button>

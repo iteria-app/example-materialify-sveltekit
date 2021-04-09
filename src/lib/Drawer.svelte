@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { browser } from '$app/env';
 	import { goto } from '$app/navigation';
 	import { Button, NavigationDrawer, List, ListItem, Divider } from 'svelte-materialify';
@@ -7,7 +8,6 @@
 	import UserInfoDrawer from './UserInfoDrawer.svelte';
 	import { BarChartIcon, UsersIcon } from 'svelte-feather-icons';
 	import { _ } from 'svelte-i18n';
-	import { page } from '$app/stores';
 
 	function resize() {
 		breakpoints.update((bps) => bps);
@@ -34,16 +34,6 @@
 		}
 	];
 
-	function itemClicked(index: number) {
-		const item = items[index];
-		if (item.submenu) {
-			items[index].expended = !item.expended;
-		}
-		if (item.href) {
-			goto(item.href);
-		}
-	}
-
 	$: if (browser) {
 		$mediumAndDown = window.matchMedia($breakpoints['md-and-down']).matches;
 		$smallAndDown = window.matchMedia($breakpoints['sm-and-down']).matches;
@@ -58,7 +48,17 @@
 		<Divider />
 		<List style="padding: 1rem;">
 			{#each items as item, index}
-				<ListItem on:click={() => itemClicked(index)}>
+				<ListItem
+					on:click={() => {
+						const item = items[index];
+						if (item.submenu) {
+							items[index].expended = !item.expended;
+						}
+						if (item.href) {
+							goto(item.href);
+						}
+					}}
+				>
 					<span class:activeItem={item.href === $page.path} slot="prepend">
 						<svelte:component this={item.icon} size="20" />
 					</span>
