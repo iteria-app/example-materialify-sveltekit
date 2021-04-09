@@ -21,9 +21,27 @@
 		{
 			icon: UsersIcon,
 			name: $_('app.drawer.customers'),
-			href: '/customers'
+			href: '/customers',
+			expended: false,
+			submenu: [
+				{
+					icon: UsersIcon,
+					name: $_('app.drawer.customers'),
+					href: '/customers'
+				}
+			]
 		}
 	];
+
+	function itemClicked(index: number) {
+		const item = items[index];
+		if (item.submenu) {
+			items[index].expended = !item.expended;
+		}
+		if (item.href) {
+			goto(item.href);
+		}
+	}
 
 	$: if (browser) {
 		$mediumAndDown = window.matchMedia($breakpoints['md-and-down']).matches;
@@ -38,17 +56,29 @@
 		<UserInfoDrawer />
 		<Divider />
 		<List style="padding: 1rem;">
-			{#each items as item}
-				<ListItem on:click={() => goto(item.href)}>
+			{#each items as item, index}
+				<ListItem on:click={() => itemClicked(index)}>
 					<span slot="prepend">
 						<svelte:component this={item.icon} size="20" />
 					</span>
 					{item.name}
 				</ListItem>
+				{#if item.expended && item.submenu}
+					<div class="submenu">
+						{#each item.submenu as item}
+							<ListItem on:click={() => goto(item.href)}>
+								<span slot="prepend">
+									<svelte:component this={item.icon} size="15" />
+								</span>
+								{item.name.toLowerCase()}
+							</ListItem>
+						{/each}
+					</div>
+				{/if}
 			{/each}
 		</List>
 		<span slot="append" class="pa-2">
-			<Button block>{$_("app.drawer.logout")}</Button>
+			<Button block>{$_('app.drawer.logout')}</Button>
 		</span>
 	</NavigationDrawer>
 </div>
@@ -72,5 +102,8 @@
 	[slot='prepend'] {
 		margin-right: 0.6rem;
 		transform: translateY(2px);
+	}
+	.submenu {
+		padding-left: 1rem;
 	}
 </style>
