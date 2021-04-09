@@ -1,21 +1,20 @@
-import { formatCurrency } from "$lib/helpers/format";
+import { } from "$lib/helpers/format";
 import { writable } from "svelte/store";
 
 interface Budget {
-    value: string,
+    value: number,
     change: number,
     changeType: 'down' | 'up'
 }
 
 export const budget = writable<Budget>({
-    value: formatCurrency(24000),
+    value: 24000,
     change: 12,
     changeType: 'down'
 });
 
-
 export const customers = writable<Budget>({
-    value: formatCurrency(1600),
+    value: 1600,
     change: 12,
     changeType: 'up'
 });
@@ -25,7 +24,7 @@ export const progress = writable({
 });
 
 export const profit = writable({
-    value: formatCurrency(23200)
+    value: 23200
 });
 
 export const latestSales = writable({

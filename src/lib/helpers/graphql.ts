@@ -3,7 +3,7 @@ import { GRAPHQL_ENDPOINT } from "$lib/env";
 export class GraphqlClient {
     constructor(private endpoint) { }
     async executeQuery(query: string, variables = {}) {
-        const headers = { 'content-type': 'appliaction/json' };
+        const headers = { 'content-type': 'application/json' };
         const body = JSON.stringify({
             query,
             variables

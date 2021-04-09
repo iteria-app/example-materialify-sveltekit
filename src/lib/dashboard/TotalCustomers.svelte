@@ -1,6 +1,5 @@
 <script>
-	import { _ } from 'svelte-i18n';
-
+	import { number, _ } from 'svelte-i18n';
 	import { Avatar, Card, CardActions } from 'svelte-materialify';
 	import { customers } from './data';
 </script>
@@ -12,7 +11,7 @@
 				{$_('app.dashboard.totalCustomers')}
 			</span>
 			<br />
-			<span class="text-h5 mb-2">{$customers.value}</span>
+			<span class="text-h5 mb-2">{$number($customers.value)}</span>
 			<br />
 		</div>
 		<div class="icon">
