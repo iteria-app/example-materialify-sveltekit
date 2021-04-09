@@ -2,7 +2,7 @@
 	import { Avatar, Card, CardActions, ProgressLinear } from 'svelte-materialify';
 </script>
 
-<Card outlined style="min-height: 120px;">
+<Card style="min-height: 120px;">
 	<div class="card-top">
 		<div class="pl-4 pr-4 pt-3">
 			<span class="text-subtitle-2 grey-text text-darken-2">TASKS PROGRESS</span>
