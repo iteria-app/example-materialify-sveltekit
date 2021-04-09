@@ -5,7 +5,7 @@
 </script>
 
 <div class="wrapper" class:mobile={$smallAndDown} class:tablet={$mediumAndDown}>
-	<Card outlined style="min-height: 300px;">
+	<Card style="min-height: 300px;">
 		<CardTitle class="latest--orders--card-title">
 			<div class="title">
 				<span>Latest Orders</span>

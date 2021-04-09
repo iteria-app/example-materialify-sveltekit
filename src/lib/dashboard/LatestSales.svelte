@@ -80,7 +80,7 @@
 </script>
 
 <div class="wrapper" class:tablet={$mediumAndDown}>
-	<Card outlined style="height: 100%;">
+	<Card style="height: 100%;">
 		<CardTitle>
 			<div class="title">
 				<span>Latest Sales</span>
