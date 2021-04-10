@@ -7,13 +7,22 @@
 	import graphqlClient from '$lib/helpers/graphql';
 	import allCustomers from './data';
 	import { QUERY_CUSTOMERS } from './queries';
+	import getAbilities from '$lib/helpers/abilities';
 
-	let pendingRequest = false;
+	let pendingRequest = true;
 	let errorMessage;
+	let showSpinner = false;
+	let canReadCustomers = false;
+	const abilities = getAbilities({ id: 'user_id' });
 
 	onMount(async () => {
 		try {
+			if (abilities.cannot('read', 'Customer')) {
+				throw Error('Can not read customers');
+			}
+			canReadCustomers = true;
 			pendingRequest = true;
+			setTimeout(() => (showSpinner = true), 200);
 			const result = await graphqlClient.query(QUERY_CUSTOMERS);
 			$allCustomers = result.data.customers;
 			pendingRequest = false;
@@ -64,44 +73,46 @@
 			</div>
 		</Card>
 	{/if}
-	<Card>
-		<CardText style="padding: 0;overflow-x: auto;">
-			{#if pendingRequest}
-				<div class="spinner">
-					<ProgressCircular indeterminate size={40} />
+	{#if canReadCustomers}
+		<Card>
+			<CardText style="padding: 0;overflow-x: auto;">
+				{#if showSpinner && pendingRequest}
+					<div class="spinner">
+						<ProgressCircular indeterminate size={40} />
+					</div>
+				{:else}
+					<Customers {allSelected} {customers} />
+				{/if}
+			</CardText>
+			<CardActions>
+				<div class="actions">
+					<div>
+						<span>Rows per page:</span>
+						<Select {items} bind:value={rowPerPage} class="select-rows-per-page" dense />
+					</div>
+					<div>
+						<span>
+							{currentPage * rowPerPage + 1}-{Math.min(
+								$allCustomers.length,
+								(currentPage + 1) * rowPerPage
+							)} of
+							{$allCustomers.length}
+						</span>
+						<Button icon={true} on:click={prevPage} disabled={currentPage === 0}>
+							<span class="material-icons"> arrow_left </span>
+						</Button>
+						<Button
+							icon={true}
+							on:click={nextPage}
+							disabled={currentPage === parseInt(`${($allCustomers.length - 1) / rowPerPage}`)}
+						>
+							<span class="material-icons"> arrow_right </span>
+						</Button>
+					</div>
 				</div>
-			{:else}
-				<Customers {allSelected} {customers} />
-			{/if}
-		</CardText>
-		<CardActions>
-			<div class="actions">
-				<div>
-					<span>Rows per page:</span>
-					<Select {items} bind:value={rowPerPage} class="select-rows-per-page" dense />
-				</div>
-				<div>
-					<span>
-						{currentPage * rowPerPage + 1}-{Math.min(
-							$allCustomers.length,
-							(currentPage + 1) * rowPerPage
-						)} of
-						{$allCustomers.length}
-					</span>
-					<Button icon={true} on:click={prevPage} disabled={currentPage === 0}>
-						<span class="material-icons"> arrow_left </span>
-					</Button>
-					<Button
-						icon={true}
-						on:click={nextPage}
-						disabled={currentPage === parseInt(`${($allCustomers.length - 1) / rowPerPage}`)}
-					>
-						<span class="material-icons"> arrow_right </span>
-					</Button>
-				</div>
-			</div>
-		</CardActions>
-	</Card>
+			</CardActions>
+		</Card>
+	{/if}
 </section>
 
 <style>
