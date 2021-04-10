@@ -10,6 +10,10 @@
 	import TotalProfit from '$lib/dashboard/TotalProfit.svelte';
 </script>
 
+<svelte:head>
+	<title>Dashboard</title>
+</svelte:head>
+
 <section class:tablet={$mediumAndDown} class:mobile={$smallAndDown}>
 	<div class="cards">
 		<div class="card">

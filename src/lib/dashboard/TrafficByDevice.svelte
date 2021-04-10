@@ -1,23 +1,16 @@
 <script lang="ts">
 	import { Card, CardTitle, Divider } from 'svelte-materialify';
 	import Chart from 'chart.js/dist/Chart.bundle.js';
+	import { _ } from 'svelte-i18n';
+	import { trafficByDevice } from './data';
 
 	let colors = { indigo: '#3f51b5', red: '#e53935', orange: '#fb8c00', white: '#ffffff' };
 
 	let canvas: HTMLCanvasElement;
+	let chart;
 
-	const data = {
-		datasets: [
-			{
-				data: [63, 15, 22],
-				backgroundColor: [colors.indigo, colors.red, colors.orange],
-				borderWidth: 8,
-				borderColor: colors.white,
-				hoverBorderColor: colors.white
-			}
-		],
-		labels: ['Desktop', 'Tablet', 'Mobile']
-	};
+	$: data = $trafficByDevice.data;
+	$: devices = $trafficByDevice.devices;
 
 	const options = {
 		animation: false,
@@ -29,43 +22,19 @@
 		responsive: true
 	};
 
-	const config = {
-		type: 'doughnut',
-		data: data,
-		options
-	};
-
-	let chart;
-	const devices = [
-		{
-			title: 'Desktop',
-			value: 63,
-			icon: 'laptop_mac',
-			color: colors.indigo
-		},
-		{
-			title: 'Tablet',
-			value: 15,
-			icon: 'tablet_mac',
-			color: colors.red
-		},
-		{
-			title: 'Mobile',
-			value: 23,
-			icon: 'phone_iphone',
-			color: colors.orange
-		}
-	];
-
 	$: if (canvas && !chart) {
-		chart = new Chart(canvas.getContext('2d'), config);
+		chart = new Chart(canvas.getContext('2d'), {
+			type: 'doughnut',
+			data: data,
+			options
+		});
 	}
 </script>
 
 <Card>
 	<CardTitle>
 		<div class="title">
-			<span>Traffic By Device</span>
+			<span>{$_('app.dashboard.traficByDevice')}</span>
 		</div>
 	</CardTitle>
 	<Divider />
@@ -80,7 +49,7 @@
 					<div>
 						<span class="material-icons">{device.icon}</span>
 					</div>
-					<span class="text-body-1">{device.title}</span>
+					<span class="text-body-1">{$_(device.title)}</span>
 					<span class="text-h4" style="color: {device.color};">{device.value}%</span>
 				</div>
 			{/each}

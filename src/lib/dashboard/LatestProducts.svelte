@@ -1,24 +1,35 @@
 <script>
-	import { Button, Card, CardTitle, Divider, List, ListItem } from 'svelte-materialify';
+	import { _ } from 'svelte-i18n';
+	import {
+		Button,
+		Card,
+		CardActions,
+		CardTitle,
+		Divider,
+		List,
+		ListItem
+	} from 'svelte-materialify';
+	import { latestProducts } from './data';
 </script>
 
 <Card style="height: 100%;">
 	<CardTitle>
 		<div class="title">
-			<span>Latest Products</span>
+			<span>{$_('app.dashboard.latestProducts')}</span>
 		</div>
 	</CardTitle>
 	<Divider />
 	<List flat>
-		{#each [1, 2, 3, 4, 5] as item}
+		{#each $latestProducts as product}
 			<ListItem ripple={{ opacity: 0 }}>
 				<div class="item">
-					<!-- <Avatar tile={true} size={44}> -->
-					<img src="/images/products/product_{item}.png" alt="" class="avatar" />
+					<img src={product.logo} alt="" class="avatar" />
 					<div class="item-body">
-						<div class="product-name">Dropbox</div>
+						<div class="product-name">{product.name}</div>
 						<span class="product-subtitle text-subtitle-2 grey-text text-darken-2">
-							Updated 2 hours ago
+							{$_('app.dashboard.updated')}
+							{product.updated}
+							{$_('app.dashboard.ago')}
 						</span>
 					</div>
 					<div class="item-action">
@@ -31,6 +42,19 @@
 			<Divider />
 		{/each}
 	</List>
+
+	<CardActions>
+		<div class="actions">
+			<Button
+				depressed={true}
+				style="background: transparent;padding: 1rem 0.4rem;color: blue;"
+				size="small"
+			>
+				View All
+				<span class="material-icons">arrow_right</span>
+			</Button>
+		</div>
+	</CardActions>
 </Card>
 
 <style>
@@ -50,5 +74,13 @@
 	.item-action {
 		display: flex;
 		align-items: center;
+	}
+	.actions {
+		bottom: 10rem;
+		height: 200%;
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+		transform: translateY(calc(5vw / 10));
 	}
 </style>

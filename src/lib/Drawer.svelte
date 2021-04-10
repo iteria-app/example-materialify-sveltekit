@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { browser } from '$app/env';
 	import { goto } from '$app/navigation';
 	import { Button, NavigationDrawer, List, ListItem, Divider } from 'svelte-materialify';
@@ -6,6 +7,7 @@
 	import { drawerVisible } from './stores';
 	import UserInfoDrawer from './UserInfoDrawer.svelte';
 	import { BarChartIcon, UsersIcon } from 'svelte-feather-icons';
+	import { _ } from 'svelte-i18n';
 
 	function resize() {
 		breakpoints.update((bps) => bps);
@@ -14,13 +16,21 @@
 	const items = [
 		{
 			icon: BarChartIcon,
-			name: 'Dashboard',
+			name: $_('app.drawer.dashboard'),
 			href: '/dashboard'
 		},
 		{
 			icon: UsersIcon,
-			name: 'Customers',
-			href: '/customers'
+			name: $_('app.drawer.customers'),
+			href: '/customers',
+			expended: false,
+			submenu: [
+				{
+					icon: UsersIcon,
+					name: $_('app.drawer.customers'),
+					href: '/customers'
+				}
+			]
 		}
 	];
 
@@ -37,17 +47,39 @@
 		<UserInfoDrawer />
 		<Divider />
 		<List style="padding: 1rem;">
-			{#each items as item}
-				<ListItem on:click={() => goto(item.href)}>
-					<span slot="prepend">
+			{#each items as item, index}
+				<ListItem
+					on:click={() => {
+						const item = items[index];
+						if (item.submenu) {
+							items[index].expended = !item.expended;
+						}
+						if (item.href) {
+							goto(item.href);
+						}
+					}}
+				>
+					<span class:activeItem={item.href === $page.path} slot="prepend">
 						<svelte:component this={item.icon} size="20" />
 					</span>
-					{item.name}
+					<span class:activeItem={item.href === $page.path}> {item.name}</span>
 				</ListItem>
+				{#if item.expended && item.submenu}
+					<div class="submenu">
+						{#each item.submenu as item}
+							<ListItem on:click={() => goto(item.href)}>
+								<span slot="prepend">
+									<svelte:component this={item.icon} size="15" />
+								</span>
+								{item.name.toLowerCase()}
+							</ListItem>
+						{/each}
+					</div>
+				{/if}
 			{/each}
 		</List>
 		<span slot="append" class="pa-2">
-			<Button block>Logout</Button>
+			<Button block>{$_('app.drawer.logout')}</Button>
 		</span>
 	</NavigationDrawer>
 </div>
@@ -71,5 +103,11 @@
 	[slot='prepend'] {
 		margin-right: 0.6rem;
 		transform: translateY(2px);
+	}
+	.submenu {
+		padding-left: 1rem;
+	}
+	.activeItem {
+		color: blue;
 	}
 </style>
